@@ -126,7 +126,8 @@ module.exports = function (router) {
                 if (!task) return notFound(res, 'Task');
                 return ok(res, task);
             } catch (e) {
-                return badRequest(res, 'Invalid task id');
+                // return badRequest(res, 'Invalid task id');
+                return notFound(res, 'Task');
             }
         })
         .put(async (req, res) => {

@@ -128,7 +128,8 @@ module.exports = function (router) {
                 if (!user) return notFound(res, 'User');
                 return ok(res, user);
             } catch (e) {
-                return badRequest(res, 'Invalid user id');
+                // return badRequest(res, 'Invalid user id');
+                return notFound(res, 'User');
             }
         })
         .put(async (req, res) => {
