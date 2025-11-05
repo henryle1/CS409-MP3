@@ -148,7 +148,7 @@ module.exports = function (router) {
                     return badRequest(res, 'A user with this email already exists');
                 }
 
-                const newPending = Array.isArray(body.pendingTasks) ? body.pendingTasks.map(String) : [];
+                const newPending = Array.isArray(body.pendingTasks) ? [...new Set(body.pendingTasks.map(String))] : [];
 
                 const prevPending = (user.pendingTasks || []).map(String);
                 const toRemove = prevPending.filter(id => !newPending.includes(id));
