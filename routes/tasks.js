@@ -75,13 +75,13 @@ module.exports = function (router) {
             try {
                 const body = req.body || {};
                 const name = (body.name || '').trim();
-                const deadline = body.deadline ? new Date(body.deadline) : null;
+                const deadline = body.deadline ? new Date(Number(body.deadline)) : null;
                 if (!name || !deadline || isNaN(deadline.getTime())) {
                     return badRequest(res, 'Task must have a valid name and deadline');
                 }
 
                 const description = body.description ? String(body.description) : "";
-                const completed = typeof body.completed === 'boolean' ? body.completed : false;
+                const completed = toBool(body.completed);
                 let assignedUser = body.assignedUser ? String(body.assignedUser) : "";
                 let assignedUserName = "unassigned";
 
@@ -134,7 +134,7 @@ module.exports = function (router) {
             try {
                 const body = req.body || {};
                 const name = (body.name || '').trim();
-                const deadline = body.deadline ? new Date(body.deadline) : null;
+                const deadline = body.deadline ? new Date(Number(body.deadline)) : null;
                 if (!name || !deadline || isNaN(deadline.getTime())) {
                     return badRequest(res, 'Task must have a valid name and deadline');
                 }
@@ -148,7 +148,7 @@ module.exports = function (router) {
                 task.name = name;
                 task.description = body.description ? String(body.description) : "";
                 task.deadline = deadline;
-                task.completed = typeof body.completed === 'boolean' ? body.completed : false;
+                task.completed = toBool(body.completed);
 
                 let newAssignedUser = body.assignedUser ? String(body.assignedUser) : "";
                 if (newAssignedUser) {
